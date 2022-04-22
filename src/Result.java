@@ -1,12 +1,17 @@
 public class Result {
     private static String result;
+    // private static String Ans;
     Result() {
 
     }
-    public void setResult(String s) {
+    public static void setResult(String s) {
         result = s;
+        // Ans = result;
     }
-    public String getResult() {
+    public static String getResult() {
         return result;
     }
+    // public String getAns() {
+
+    // }
 }

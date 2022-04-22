@@ -25,7 +25,6 @@ class OperatorButton {
             btn.setFocusable(false);
             btn.addActionListener((e) -> {
                 String input = textField.getText();
-                System.out.println(btnName);
                 switch(btnName) {
                     case "AC":
                         textField.setText("");

@@ -3,18 +3,17 @@ import java.util.ArrayList;
 
 class Calculate {
     private ArrayList<String> values, operators;
-    private Result result;
     private final String INVALID_SYNTAX = "Invalid Syntax";
 
     Calculate(String input) {
         values = new ArrayList<String>();
         operators = new ArrayList<String>();
-        result = new Result();
         input.trim();
         if(!input.isEmpty()) {
             if(input.startsWith("+") || input.startsWith("-")) {
                 input = "0".concat(input);
             }
+            input = replaceAns(input);
             //Do all scientific calculations and put result into input string
             input = doScientificCalculations(input);
             //seperate operators i.e +, -, *, / and values in input string
@@ -29,18 +28,43 @@ class Calculate {
                 multiplicationProcess();
                 additionProcess();
                 subtractionProcess();
-                if(result.getResult() == null || !result.getResult().equals(INVALID_SYNTAX))
-                    result.setResult(values.get(0));
+                if(Result.getResult() == null || !Result.getResult().equals(INVALID_SYNTAX))
+                    Result.setResult(values.get(0));
             }
             else {
-                result.setResult(input);;
+                Result.setResult(input);;
             }
         }
     }
     public String getResult() {
-        return result.getResult();
+        return Result.getResult();
     }
     
+    private static int count(String str, String target) {
+        return (str.length() - str.replace(target, "").length()) / target.length();
+    }
+    
+
+    private String replaceAns(String input) {
+        StringBuilder sb = new StringBuilder(input);
+        int count = count(input, "Ans");
+        ArrayList<Integer> Indexes = new ArrayList<Integer>();
+        for(int i = 0; i < count; i++) {
+            if(input.indexOf("Ans", i) >= 0 && Result.getResult() != null && !Result.getResult().equals(INVALID_SYNTAX)) {
+                Integer idx = input.indexOf("Ans", i);
+                Indexes.add(idx);
+            }
+            else 
+                break;
+        }
+
+        if(input.indexOf("Ans") >= 0 && Result.getResult() != null && !Result.getResult().equals(INVALID_SYNTAX))
+            for(int i = Indexes.size() - 1; i >= 0; i--) {
+                // Integer idx = input.indexOf("Ans");
+                sb.replace(Indexes.get(i), Indexes.get(i) + "Ans".length(), Result.getResult());
+            }
+        return sb.toString();
+    }
     private String doScientificCalculations(String input) {
         /*
             Calculate sin, cos, tan etc one by one, then store result in answers array.
@@ -166,7 +190,7 @@ class Calculate {
         Integer opIndex = -1;
             for(int i = 0; i < input.length(); i++) {
                 char temp = input.charAt(i);
-                if( temp == '+' || temp == '-' || temp == 'X' || temp == '/' || temp == '!') {
+                if( temp == '+' || temp == '-' || temp == 'X' || temp == '/' || temp == '!' || temp == '^') {
                     values.add(input.substring(opIndex + 1, i));
                     operators.add(Character.toString(input.charAt(i)));
                     opIndex = i; 
@@ -189,6 +213,7 @@ class Calculate {
             }
         }
     }
+
 
     private void divisionProcess() {
         for(int i = 0; i < operators.size(); i++) {

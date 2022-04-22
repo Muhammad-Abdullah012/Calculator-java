@@ -66,7 +66,7 @@ class UI {
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
         operatorPanel.setLayout(new GridLayout(4, 2));
         digitsPanel.setLayout(new GridLayout(4, 3));
-        scientificPanel.setLayout(new GridLayout(3, 4));
+        scientificPanel.setLayout(new GridLayout(3, 5));
     }
     void setFrameProperties() {
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
