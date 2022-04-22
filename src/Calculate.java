@@ -60,7 +60,6 @@ class Calculate {
 
         if(input.indexOf("Ans") >= 0 && Result.getResult() != null && !Result.getResult().equals(INVALID_SYNTAX))
             for(int i = Indexes.size() - 1; i >= 0; i--) {
-                // Integer idx = input.indexOf("Ans");
                 sb.replace(Indexes.get(i), Indexes.get(i) + "Ans".length(), Result.getResult());
             }
         return sb.toString();
@@ -190,7 +189,7 @@ class Calculate {
         Integer opIndex = -1;
             for(int i = 0; i < input.length(); i++) {
                 char temp = input.charAt(i);
-                if( temp == '+' || temp == '-' || temp == 'X' || temp == '/' || temp == '!' || temp == '^') {
+                if( temp == '+' || temp == '-' || temp == 'X' || temp == '/' || temp == '!') {
                     values.add(input.substring(opIndex + 1, i));
                     operators.add(Character.toString(input.charAt(i)));
                     opIndex = i; 
